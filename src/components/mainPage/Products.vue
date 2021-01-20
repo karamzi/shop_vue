@@ -1,24 +1,24 @@
 <template>
     <section class="products">
-            <router-link to="/balls" class="product_item" style="background-color: #f1dfded1">
+            <router-link to="/category/balls" class="product_item" style="background-color: #f1dfded1">
                 <div class="products_title">
                     <h3>Шары</h3>
                 </div>
                 <img src="@/assets/img/ball.png" alt="">
             </router-link>
-        <router-link to="/bags" class="product_item" style="background-color: #f8f0e9b5">
+        <router-link to="/category/bags" class="product_item" style="background-color: #f8f0e9b5">
             <div class="products_title">
                 <h3>Сумки</h3>
             </div>
             <img src="@/assets/img/bag.png" alt="">
         </router-link>
-        <router-link to="/shoes" class="product_item" style="background-color: #e6e6e6">
+        <router-link to="/category/shoes" class="product_item" style="background-color: #e6e6e6">
             <div class="products_title">
                 <h3>Обувь</h3>
             </div>
             <img src="@/assets/img/shoes.png" alt="">
         </router-link>
-        <router-link to="/accessories" class="product_item" style="background-color: #e0f1ded1">
+        <router-link to="/category/accessories" class="product_item" style="background-color: #e0f1ded1">
             <div class="products_title">
                 <h3>Аксессуары</h3>
             </div>

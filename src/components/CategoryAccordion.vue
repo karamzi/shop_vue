@@ -5,10 +5,10 @@
             <div class="arrow-8"></div>
         </div>
         <div v-if="showBallsCategory" class="category_link_accordion">
-            <router-link to="/balls?subcategory=Storm">Storm</router-link>
-            <router-link to="/balls?subcategory=Hammer">Hammer</router-link>
-            <router-link to="/balls?subcategory=Motive">Motive</router-link>
-            <router-link to="/balls?subcategory=Track">Track</router-link>
+            <router-link to="/category/balls?subcategory=Storm">Storm</router-link>
+            <router-link to="/category/balls?subcategory=Hammer">Hammer</router-link>
+            <router-link to="/category/balls?subcategory=Motive">Motive</router-link>
+            <router-link to="/category/balls?subcategory=Track">Track</router-link>
         </div>
         <div @click="showBagsCategory = !showBagsCategory" class="category_link">
             <p href="#">Сумки</p>

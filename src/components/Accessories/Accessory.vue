@@ -13,7 +13,7 @@
                     <div class="product_description">{{ product.description }}</div>
                     <div class="product_buttons">
                         <div class="product_add_to_cart">
-                            <a href="#">Добавить в корзину</a>
+                            <p @click="onAddToCard()">Добавить в корзину</p>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,12 @@
     export default {
         name: "Accessory",
         computed: mapGetters(['product', 'isLoading']),
-        methods: mapActions(['getProduct']),
+        methods: {
+            ...mapActions(['getProduct', 'addToCartAction']),
+            onAddToCard() {
+                this.addToCartAction(this.product)
+            }
+        },
         created() {
             if(!this.product) {
                 this.getProduct({category: 'accessory', id: this.$route.params.id})
@@ -91,15 +96,15 @@
         margin-bottom: 30px;
     }
 
-    .product_add_to_cart a {
+    .product_add_to_cart p {
         display: block;
-        text-decoration: none;
         color: white;
+        cursor: pointer;
         background-color: #363636;
         padding: 10px 20px;
     }
 
-    .product_add_to_cart a:hover {
+    .product_add_to_cart p:hover {
         transition: background-color 0.3s ease;
         background-color: #929292;
     }

@@ -3,35 +3,36 @@
         <div class="container">
             <div class="cart_block">
                 <h2>Корзина</h2>
-                <div class="cart_empty">
+                <div v-if="cart.length === 0" class="cart_empty">
                     <p>В вашей корзине нет товаров</p>
                 </div>
-                <div class="cart_list">
-                    <router-link to="/product/1" class="cart_item">
-                        <img src="@/assets/img/ball.png" alt="">
+                <div v-else class="cart_list">
+                    <div v-bind:key="product.vendor_code" v-for="product in cart" class="cart_item">
+                        <img :src="product.img" alt="">
                         <div class="cart_item_name">
-                            <a href="#">Jackal Flash</a>
+                            <router-link :to="'/' + product.category + '/' + product.vendor_code ">{{ product.name }}
+                            </router-link>
                         </div>
                         <div class="cart_item_count">
-                            <span>1</span>
+                            <span><p>{{ product.quantity }}</p></span>
                             <div class="count_buttons">
-                                <span class="plus">+</span>
-                                <span class="minus">-</span>
+                                <span @click="addOneAction(product)" class="plus">+</span>
+                                <span @click="removeOneAction(product)" class="minus">-</span>
                             </div>
                         </div>
                         <p>x</p>
-                        <div class="cart_item_price">2900 руб</div>
+                        <div class="cart_item_price">{{ product.price }} руб</div>
                         <p>=</p>
-                        <div class="cart_item_amount">2900 руб</div>
-                        <span class="cart_item_delete">x</span>
-                    </router-link>
+                        <div class="cart_item_amount">{{ totalPrice(product) }} руб</div>
+                        <span @click="deleteFromCartAction(product)" class="cart_item_delete">x</span>
+                    </div>
                 </div>
                 <div class="cart_amount">
                     <p>Итого:</p>
-                    <span>2900 руб</span>
+                    <span>{{ totalCartPrice }} руб</span>
                 </div>
                 <div class="cart_buttons">
-                    <a href="#" class="continue_buy">Продолжить покупки</a>
+                    <router-link to="/" class="continue_buy">Продолжить покупки</router-link>
                     <a href="#" class="end_buy">Оформить заказ</a>
                 </div>
             </div>
@@ -40,8 +41,17 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
+
     export default {
-        name: "Cart"
+        name: "Cart",
+        computed: mapGetters(['cart', 'totalCartPrice']),
+        methods: {
+            ...mapActions(['addOneAction', 'removeOneAction', 'deleteFromCartAction']),
+            totalPrice(product) {
+                return product.quantity * product.price
+            }
+        },
     }
 </script>
 
@@ -57,12 +67,12 @@
         text-transform: uppercase;
         width: 100%;
         text-align: center;
+        margin-bottom: 25px;
     }
 
     .cart_empty {
         width: 100%;
         background-color: #fbf8e3;
-        margin-top: 30px;
         border-radius: 5px;
     }
 
@@ -84,12 +94,13 @@
     }
 
     .cart_item img {
-        width: 70px;
+        width: 50px;
+        height: 50px;
     }
 
     .cart_item_name a {
         text-decoration: none;
-        color: black;
+        color: #101010;
     }
 
     .cart_item_name a:hover {
@@ -102,7 +113,11 @@
     }
 
     .cart_item_count > span {
-        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 33px;
+        height: 47px;
         border: 1px solid #929292;
     }
 

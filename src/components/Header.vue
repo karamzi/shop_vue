@@ -8,16 +8,16 @@
                 <div class="navbar">
                     <nav>
                         <div class="nav_item">
-                            <router-link to="/balls">Шары</router-link>
+                            <router-link to="/category/balls">Шары</router-link>
                         </div>
                         <div class="nav_item">
-                            <router-link to="/bags">Сумки</router-link>
+                            <router-link to="/category/bags">Сумки</router-link>
                         </div>
                         <div class="nav_item">
-                            <router-link to="/shoes">Обувь</router-link>
+                            <router-link to="/category/shoes">Обувь</router-link>
                         </div>
                         <div class="nav_item">
-                            <router-link to="/accessories">Акссесуары</router-link>
+                            <router-link to="/category/accessories">Акссесуары</router-link>
                         </div>
                     </nav>
                     <router-link to="/cart" class="cart">

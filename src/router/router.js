@@ -20,7 +20,7 @@ export default new VueRouter({
         path: '/',
         component: MainPage,
     }, {
-        path: '/:category',
+        path: '/category/:category',
         component: Bowls,
     }, {
         path: '/ball/:id',
@@ -29,19 +29,19 @@ export default new VueRouter({
         path: '/cart',
         component: Cart,
     }, {
-        path: '/:category',
+        path: '/category/:category',
         component: Bags,
     }, {
         path: '/bag/:id',
         component: Bag,
     }, {
-        path: '/:category',
+        path: '/category/:category',
         component: Shoes,
     }, {
         path: '/Shoes/:id',
         component: CurrentShoes,
     }, {
-        path: '/:category',
+        path: '/category/:category',
         component: Accessories,
     }, {
         path: '/accessory/:id',
