@@ -11,16 +11,14 @@
                     <div class="product_price">{{ product.price }} руб</div>
                     <div class="product_description">{{ product.description }}</div>
                     <div class="product_buttons">
-                        <div class="ball_weight">
-                            <span>Вес <img src="img/arrow.png" alt=""></span>
-                            <ul>
-                                <li>14</li>
-                                <li>15</li>
-                                <li>16</li>
+                        <div @mouseover="showSizes" @mouseleave="hideSizes" class="ball_weight">
+                            <span>{{ size }}</span>
+                            <ul @click="choseSize($event)" v-if="show">
+                                <li v-bind:key="weight.weight" v-for="weight in product.weight">{{ weight.weight }}</li>
                             </ul>
                         </div>
                         <div class="product_add_to_cart">
-                            <a href="#">Добавить в корзину</a>
+                            <p @click="onAddToCard" href="#">Добавить в корзину</p>
                         </div>
                     </div>
                 </div>
@@ -35,10 +33,34 @@
 
     export default {
         name: "ball",
+        data() {
+            return {
+                show: false,
+                size: 'Вес',
+            }
+        },
         computed: mapGetters(['product', 'isLoading']),
-        methods: mapActions(['getProduct']),
+        methods: {
+            ...mapActions(['getProduct', 'addToCartAction']),
+            showSizes() {
+                this.show = true
+            },
+            hideSizes() {
+                this.show = false
+            },
+            choseSize(e) {
+                this.show = false
+                this.size = e.target.textContent
+            },
+            onAddToCard() {
+                if (this.size !== 'Вес') {
+                    this.product.size = this.size
+                    this.addToCartAction(this.product)
+                }
+            }
+        },
         created() {
-            if(!this.product) {
+            if (!this.product) {
                 this.getProduct({category: 'ball', id: this.$route.params.id})
             }
         }
@@ -101,7 +123,7 @@
     .ball_weight span {
         display: flex;
         align-items: center;
-        padding: 10px 20px;
+        padding: 10px 30px;
         background-color: #929292;
         color: white;
         font-size: 18px;
@@ -141,15 +163,15 @@
         margin-left: 50px;
     }
 
-    .product_add_to_cart a {
+    .product_add_to_cart p {
         display: block;
-        text-decoration: none;
+        cursor: pointer;
         color: white;
         background-color: #363636;
         padding: 10px 20px;
     }
 
-    .product_add_to_cart a:hover {
+    .product_add_to_cart p:hover {
         transition: background-color 0.3s ease;
         background-color: #929292;
     }

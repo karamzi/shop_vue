@@ -119,6 +119,7 @@ export default new Vuex.Store({
                 quantity: 1,
                 price: product.price,
                 category: product.category,
+                size: product.size
             }
             commit('addToCart', p)
         },

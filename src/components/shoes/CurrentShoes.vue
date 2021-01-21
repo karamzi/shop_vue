@@ -12,8 +12,14 @@
                     <div class="product_price">{{ product.price }} руб</div>
                     <div class="product_description">{{ product.description }}</div>
                     <div class="product_buttons">
+                        <div @mouseover="showSizes" @mouseleave="hideSizes" class="ball_weight">
+                            <span>{{ size }}</span>
+                            <ul @click="choseSize($event)" v-if="show">
+                                <li v-bind:key="size.size" v-for="size in product.size">{{ size.size }}</li>
+                            </ul>
+                        </div>
                         <div class="product_add_to_cart">
-                            <a href="#">Добавить в корзину</a>
+                            <p @click="onAddToCard" href="#">Добавить в корзину</p>
                         </div>
                     </div>
                 </div>
@@ -28,8 +34,33 @@
 
     export default {
         name: "CurrentShoes",
+        data() {
+            return {
+                show: false,
+                size: 'Размер',
+            }
+        },
         computed: mapGetters(['product', 'isLoading']),
-        methods: mapActions(['getProduct']),
+        methods: {
+            ...mapActions(['getProduct', 'addToCartAction']),
+            showSizes() {
+                this.show = true
+            },
+            hideSizes() {
+                this.show = false
+            },
+            choseSize(e) {
+                this.show = false
+                this.size = e.target.textContent
+            },
+            onAddToCard() {
+                if (this.size !== 'Вес') {
+                    let p = {...this.product}
+                    p.size = this.size
+                    this.addToCartAction(p)
+                }
+            }
+        },
         created() {
             if (!this.product) {
                 this.getProduct({category: 'shoes', id: this.$route.params.id})
@@ -91,15 +122,58 @@
         margin-bottom: 30px;
     }
 
-    .product_add_to_cart a {
+    .ball_weight span {
+        display: flex;
+        align-items: center;
+        padding: 10px 30px;
+        background-color: #929292;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .ball_weight span:hover {
+        transition: background-color 0.3s ease;
+        background-color: #363636;
+    }
+
+    .ball_weight span img {
+        width: 20px;
+        margin-left: 10px;
+    }
+
+    .ball_weight ul {
         display: block;
-        text-decoration: none;
+        list-style: none;
+    }
+
+    .ball_weight ul li {
+        text-align: center;
+        width: 100%;
+        background-color: #929292;
+        color: white;
+        padding: 7px 0;
+        cursor: pointer;
+    }
+
+    .ball_weight ul li:hover {
+        transition: background-color 0.3s ease;
+        background-color: #363636;
+    }
+
+    .product_add_to_cart {
+        margin-left: 50px;
+    }
+
+    .product_add_to_cart p {
+        display: block;
+        cursor: pointer;
         color: white;
         background-color: #363636;
         padding: 10px 20px;
     }
 
-    .product_add_to_cart a:hover {
+    .product_add_to_cart p:hover {
         transition: background-color 0.3s ease;
         background-color: #929292;
     }
