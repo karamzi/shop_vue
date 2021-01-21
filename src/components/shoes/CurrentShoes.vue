@@ -54,7 +54,7 @@
                 this.size = e.target.textContent
             },
             onAddToCard() {
-                if (this.size !== 'Вес') {
+                if (this.size !== 'Размерç') {
                     let p = {...this.product}
                     p.size = this.size
                     this.addToCartAction(p)
