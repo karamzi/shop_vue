@@ -33,7 +33,7 @@
                 </div>
                 <div class="cart_buttons">
                     <router-link to="/" class="continue_buy">Продолжить покупки</router-link>
-                    <a href="#" class="end_buy">Оформить заказ</a>
+                    <router-link to="/order" class="end_buy">Оформить заказ</router-link>
                 </div>
             </div>
         </div>

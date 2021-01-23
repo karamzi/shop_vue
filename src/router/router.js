@@ -11,6 +11,7 @@ import CurrentShoes from "@/components/shoes/CurrentShoes"
 import Accessories from "@/components/Accessories/Accessories"
 import Accessory from "@/components/Accessories/Accessory"
 import Cart from "@/components/cart/Cart"
+import Order from "@/components/Order/Order"
 
 
 Vue.use(VueRouter)
@@ -46,6 +47,9 @@ export default new VueRouter({
     }, {
         path: '/accessory/:id',
         component: Accessory,
-    },
+    }, {
+        path: '/order',
+        component: Order,
+    }
     ]
 })

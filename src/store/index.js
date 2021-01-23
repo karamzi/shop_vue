@@ -26,6 +26,9 @@ function setCookie(value) {
     document.cookie = 'cart' + "=" + (value || "") + expires + ";"
 }
 
+function eraseCookie(name) {
+    document.cookie = name+'=; Max-Age=-99999999;';
+}
 
 export default new Vuex.Store({
     state: {
@@ -93,6 +96,10 @@ export default new Vuex.Store({
             })
             setCookie(JSON.stringify(state.cart))
         },
+        clearCart(state) {
+            state.cart = []
+            eraseCookie('cart')
+        }
     },
     actions: {
         getProducts({commit}, {category, params}) {
@@ -119,7 +126,7 @@ export default new Vuex.Store({
                 quantity: 1,
                 price: product.price,
                 category: product.category,
-                size: product.size
+                size: product.size ? product.size : ''
             }
             commit('addToCart', p)
         },
@@ -131,6 +138,26 @@ export default new Vuex.Store({
         },
         deleteFromCartAction({commit}, product) {
             commit('deleteFromCart', product)
+        },
+        sendOrder({commit, state}, order) {
+            let formData = new FormData()
+            let cart = JSON.stringify(state.cart)
+            formData.append('cart', cart)
+            formData.append('name', order.name)
+            formData.append('phone', order.phone)
+            formData.append('email', order.email)
+            formData.append('totalPrice', order.totalPrice)
+            console.log(formData)
+            instance.post('createOrder/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            }).then(response => {
+                if (response.status == 200) {
+                    commit('clearCart')
+                }
+            })
+
         }
     },
     getters: {

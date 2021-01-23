@@ -7,7 +7,8 @@
                 </div>
                 <div class="product_details">
                     <div class="product_title">{{ product.name }}</div>
-                    <div class="product_status">В наличии</div>
+                    <div v-if="product.availability" class="product_status">В наличии</div>
+                    <div v-else class="product_status" style="color: #f44336">Нет в наличии</div>
                     <div class="product_price">{{ product.price }} руб</div>
                     <div class="product_description">{{ product.description }}</div>
                     <div class="product_buttons">
