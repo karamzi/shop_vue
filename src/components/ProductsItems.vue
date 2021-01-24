@@ -1,7 +1,7 @@
 <template>
     <div class="product_items">
         <router-link v-bind:key="product.vendor_code"
-                     v-for="product in allProducts" :to="`/${product.category}/${product.vendor_code}`"
+                     v-for="product in cart" :to="`/${product.category}/${product.vendor_code}`"
                      class="product_item">
             <div class="product_container" @click="showProduct(product)">
                 <div class="product_item_img">
@@ -19,32 +19,24 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters, mapMutations} from "vuex"
+    import {mapMutations} from "vuex"
 
     export default {
         name: "ProductsItems",
-        computed: mapGetters(['allProducts']),
+        props: {
+            cart: {
+                type: Array,
+                default() {
+                    return []
+                }
+            },
+        },
         methods: {
-            ...mapActions(['getProducts']),
             ...mapMutations(['setProduct']),
             showProduct(product) {
                 this.setProduct(product)
             }
         },
-        watch: {
-            $route(to) {
-                this.getProducts({
-                    category: to.params.category,
-                    params: to.query
-                })
-            }
-        },
-        mounted() {
-            this.getProducts({
-                category: this.$route.params.category,
-                params: this.$route.query,
-            })
-        }
     }
 </script>
 

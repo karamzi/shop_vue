@@ -2,20 +2,29 @@
     <section class="section_category">
         <div class="container">
             <div class="category_title">
-                <h2>Сумки для боулинга</h2>
+                <h2>Аксессуары для боулинга</h2>
             </div>
             <div class="sort">
 
             </div>
             <div class="category">
                 <div class="filter_block">
-                    <h3>Каталог</h3>
-                    <CategoryAccordion/>
                     <div class="filter">
                         <h3>Фильтр</h3>
+                        <div class="filter_nav">
+                            <div @click="showType = !showType" class="category_link">
+                                <p href="#">Аксессуары</p>
+                                <div class="arrow-8"></div>
+                            </div>
+                            <div v-show="showType" class="category_link_accordion">
+                                <CheckBox v-bind:name="'Полотенце'" v-bind:type="'type'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Клинеры'" v-bind:type="'type'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Подошвы'" v-bind:type="'type'" @checkBox="checkBox"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <ProductsItems />
+                <ProductsItems v-bind:cart="sortedCart"/>
             </div>
         </div>
     </section>
@@ -23,11 +32,46 @@
 
 <script>
     import ProductsItems from "@/components/ProductsItems"
-    import CategoryAccordion from "@/components/CategoryAccordion"
+    import CheckBox from "@/components/CheckBox"
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "Accessories",
-        components: {CategoryAccordion, ProductsItems},
+        data() {
+            return {
+                showType: true,
+                sortedCart: [],
+                sort: {
+                    type: [],
+                },
+            }
+        },
+
+        components: {ProductsItems, CheckBox},
+        computed: mapGetters(['allProducts']),
+        methods: {
+            ...mapActions(['getProducts']),
+            checkBox(name, type) {
+                this.sort[type].indexOf(name) === -1 ? this.sort[type].push(name) : this.sort[type].splice(this.sort[type].indexOf(name), 1)
+                this.sortCart()
+            },
+            sortCart() {
+                this.sortedCart = this.allProducts
+                if (this.sort.type.length) {
+                    this.sortedCart = this.sortedCart.filter(product => {
+                        return this.sort.type.some(company => product.type === company)
+                    })
+                }
+            }
+        },
+        watch: {
+            allProducts: function () {
+                this.sortedCart = this.allProducts
+            }
+        },
+        mounted() {
+            this.getProducts('accessories')
+        },
     }
 </script>
 
@@ -63,5 +107,39 @@
         margin-bottom: 10px;
         border-bottom: 1px solid #cccccc;
         text-transform: uppercase;
+    }
+
+    .category_link {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        cursor: pointer;
+    }
+
+    .category_link p:hover {
+        color: #929292;
+        transition: color 0.3s ease;
+    }
+
+    .category_link_accordion {
+        display: flex;
+        flex-direction: column;
+        padding-left: 15px;
+    }
+
+    .category_link_accordion > a {
+        padding: 7px 0;
+        text-decoration: none;
+        color: #101010;
+    }
+
+    .category_link_accordion > a:hover {
+        color: #929292;
+        transition: color 0.3s ease;
+    }
+
+    .filter_nav {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #cccccc;
     }
 </style>

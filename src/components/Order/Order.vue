@@ -1,16 +1,18 @@
 <template>
     <section class="order_section">
         <div class="container">
+            <div v-if="success" class="success">{{ success }}</div>
+            <div v-bind:key="error" v-for="error in errors" class="error">{{ error }}</div>
             <h2>Оформление заказа</h2>
             <div class="order_block">
                 <div class="order_form">
                     <h3>Контактная форма</h3>
                     <div class="form_input">
-                        <label>контактное лицо (фио):</label>
+                        <label class="required">контактное лицо (фио):</label>
                         <input v-model="name" type="text">
                     </div>
                     <div class="form_input">
-                        <label>контактный телефон:</label>
+                        <label class="required">контактный телефон:</label>
                         <input v-model="phone" type="text">
                     </div>
                     <div class="form_input">
@@ -48,6 +50,8 @@
                 name: '',
                 phone: '',
                 email: '',
+                success: '',
+                errors: [],
             }
         },
         computed: mapGetters(['cart', 'totalCartPrice', 'productsCount']),
@@ -79,16 +83,53 @@
                     email: this.email,
                     totalPrice: this.totalCartPrice,
                 }
-                this.sendOrder(order)
-                this.name = ''
-                this.phone = ''
-                this.email = ''
+                if (this.validate()) {
+                    this.sendOrder(order)
+                    this.success = 'Ваш заказ успешно создан'
+                    setTimeout(() => this.success = '', 10000)
+                    this.name = ''
+                    this.phone = ''
+                    this.email = ''
+                }
+            },
+            validate() {
+                this.errors = []
+                if (this.name === '') {
+                    this.errors.push('Поле "контактное лицо (фио)" не заполнено')
+                    return false
+                }
+                if (this.phone === '') {
+                    this.errors.push('Поле "контактный телефон" не заполнено')
+                    return false
+                }
+                return true
             }
         }
     }
 </script>
 
 <style scoped>
+
+    .error, .success {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 100%;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+
+    .error {
+        color: #721c24;
+        background-color: #f8d7da;
+    }
+
+    .success {
+        color: #155724;
+        background-color: #d4edda;
+    }
+
     h2 {
         text-transform: uppercase;
         text-align: center;
@@ -115,6 +156,11 @@
         margin-bottom: 30px;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .required:after {
+        content: '*';
+        color: #f44336;
     }
 
     input {

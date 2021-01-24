@@ -9,25 +9,106 @@
             </div>
             <div class="category">
                 <div class="filter_block">
-                    <h3>Каталог</h3>
-                    <CategoryAccordion/>
                     <div class="filter">
                         <h3>Фильтр</h3>
+                        <div class="filter_nav">
+                            <div @click="showCompany = !showCompany" class="category_link">
+                                <p href="#">Производитель</p>
+                                <div class="arrow-8"></div>
+                            </div>
+                            <div v-show="showCompany" class="category_link_accordion">
+                                <CheckBox v-bind:name="'Storm'" v-bind:type="'company'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Hammer'" v-bind:type="'company'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Motive'" v-bind:type="'company'" @checkBox="checkBox"/>
+                            </div>
+                            <div @click="showOil = !showOil" class="category_link">
+                                <p href="#">Масло</p>
+                                <div class="arrow-8"></div>
+                            </div>
+                            <div v-show="showOil" class="category_link_accordion">
+                                <CheckBox v-bind:name="'Добивочный'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Легкое масло'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Средне легкое масло'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Среднее масло'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Средне тяжелое масло'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Тяжелое масло'" v-bind:type="'oil'" @checkBox="checkBox"/>
+                            </div>
+                            <div @click="showWeight = !showWeight" class="category_link">
+                                <p href="#">Вес</p>
+                                <div class="arrow-8"></div>
+                            </div>
+                            <div v-show="showWeight" class="category_link_accordion">
+                                <CheckBox v-bind:name="'12'" v-bind:type="'weight'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'13'" v-bind:type="'weight'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'14'" v-bind:type="'weight'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'15'" v-bind:type="'weight'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'16'" v-bind:type="'weight'" @checkBox="checkBox"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <ProductsItems />
+                <ProductsItems v-bind:cart="sortedCart"/>
             </div>
         </div>
     </section>
 </template>
 
 <script>
-    import CategoryAccordion from "@/components/CategoryAccordion"
     import ProductsItems from "@/components/ProductsItems"
+    import CheckBox from "@/components/CheckBox"
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "Bowls",
-        components: {CategoryAccordion, ProductsItems},
+        data() {
+            return {
+                showCompany: false,
+                showOil: false,
+                showWeight: false,
+                sortedCart: [],
+                sort: {
+                    company: [],
+                    oil: [],
+                    weight: [],
+                },
+            }
+        },
+
+        components: {ProductsItems, CheckBox},
+        computed: mapGetters(['allProducts']),
+        methods: {
+            ...mapActions(['getProducts']),
+            checkBox(name, type) {
+                this.sort[type].indexOf(name) === -1 ? this.sort[type].push(name) : this.sort[type].splice(this.sort[type].indexOf(name), 1)
+                this.sortCart()
+            },
+            sortCart() {
+                this.sortedCart = this.allProducts
+                if (this.sort.company.length) {
+                    this.sortedCart = this.sortedCart.filter(product => {
+                        return this.sort.company.some(company => product.company === company)
+                    })
+                }
+                if (this.sort.oil.length) {
+                    this.sortedCart = this.sortedCart.filter(product => {
+                        return this.sort.oil.some(oil => product.oil === oil)
+                    })
+                }
+                if (this.sort.weight.length) {
+                    this.sortedCart = this.sortedCart.filter(product => {
+                        return this.sort.weight.some(weight => product.weight.some(item => weight == item.weight))
+                    })
+                }
+            }
+        },
+        watch: {
+            allProducts: function () {
+                this.sortedCart = this.allProducts
+            }
+        },
+        mounted() {
+            this.getProducts('balls')
+        },
     }
 </script>
 
@@ -65,4 +146,37 @@
         text-transform: uppercase;
     }
 
+    .category_link {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        cursor: pointer;
+    }
+
+    .category_link p:hover {
+        color: #929292;
+        transition: color 0.3s ease;
+    }
+
+    .category_link_accordion {
+        display: flex;
+        flex-direction: column;
+        padding-left: 15px;
+    }
+
+    .category_link_accordion > a {
+        padding: 7px 0;
+        text-decoration: none;
+        color: #101010;
+    }
+
+    .category_link_accordion > a:hover {
+        color: #929292;
+        transition: color 0.3s ease;
+    }
+
+    .filter_nav {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #cccccc;
+    }
 </style>

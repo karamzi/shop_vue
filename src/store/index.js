@@ -102,11 +102,9 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getProducts({commit}, {category, params}) {
+        getProducts({commit}, category) {
             commit('startLoading')
-            instance.get(`${category}/`, {
-                params: {...params}
-            }).then(response => {
+            instance.get(`${category}/`).then(response => {
                 commit('setProducts', response.data)
                 commit('stopLoading')
             })

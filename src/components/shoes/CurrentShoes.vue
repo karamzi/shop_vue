@@ -122,6 +122,10 @@
         margin-bottom: 30px;
     }
 
+    .ball_weight {
+        position: relative;
+    }
+
     .ball_weight span {
         display: flex;
         align-items: center;
@@ -145,6 +149,8 @@
     .ball_weight ul {
         display: block;
         list-style: none;
+        position: absolute;
+        width: 100%;
     }
 
     .ball_weight ul li {
