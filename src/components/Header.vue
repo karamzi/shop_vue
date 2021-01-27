@@ -19,7 +19,13 @@
                         <div class="nav_item">
                             <router-link to="/category/accessories">Акссесуары</router-link>
                         </div>
+                        <div class="nav_item">
+                            <router-link to="/training">Школа боулинга</router-link>
+                        </div>
                     </nav>
+                    <div class="phone">
+                        <h4>8-911-911-66-85</h4>
+                    </div>
                     <router-link to="/cart" class="cart">
                         <img src="@/assets/img/cart.png" alt="">
                         <span>{{ productsCount }}</span>
@@ -127,6 +133,14 @@
             opacity: 0;
             transform: translate(0, 10px) rotate(-45deg);
         }
+    }
+
+    .phone {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        margin-right: 40px;
+        font-size: 20px;
     }
 
     .cart {

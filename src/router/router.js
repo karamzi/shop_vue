@@ -12,6 +12,7 @@ import Accessories from "@/components/Accessories/Accessories"
 import Accessory from "@/components/Accessories/Accessory"
 import Cart from "@/components/cart/Cart"
 import Order from "@/components/Order/Order"
+import Training from "@/components/Training"
 
 
 Vue.use(VueRouter)
@@ -50,6 +51,9 @@ export default new VueRouter({
     }, {
         path: '/order',
         component: Order,
+    }, {
+        path: '/training',
+        component: Training,
     }
     ]
 })

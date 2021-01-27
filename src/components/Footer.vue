@@ -5,8 +5,7 @@
                 <div class="footer_section">
                     <h4>Клиентам</h4>
                     <div class="footer_nav">
-                        <a href="#">Доставка</a>
-                        <a href="#">Тренировки</a>
+                        <router-link to="/training">Тренировки</router-link>
                         <a href="#">Услуги Pro-Shop</a>
                     </div>
                 </div>
@@ -17,7 +16,7 @@
                     </div>
                 </div>
                 <div class="footer_section">
-                    <h4>8-900-000-00-00</h4>
+                    <h4>8-911-911-66-85</h4>
                 </div>
             </div>
             <div class="footer_logo">
