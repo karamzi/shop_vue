@@ -55,5 +55,8 @@ export default new VueRouter({
         path: '/training',
         component: Training,
     }
-    ]
+    ],
+    scrollBehavior() {
+        return {x: 0, y: 0}
+    }
 })

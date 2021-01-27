@@ -33,6 +33,7 @@ function eraseCookie(name) {
 export default new Vuex.Store({
     state: {
         cart: get_cookie('cart'),
+        popularProducts: [],
         products: [],
         product: null,
         isLoading: false,
@@ -99,7 +100,10 @@ export default new Vuex.Store({
         clearCart(state) {
             state.cart = []
             eraseCookie('cart')
-        }
+        },
+        setPopularProduct(state, products) {
+            state.popularProducts = products
+        },
     },
     actions: {
         getProducts({commit}, category) {
@@ -113,6 +117,13 @@ export default new Vuex.Store({
             commit('startLoading')
             instance.get(`${category}/${id}/`).then(response => {
                 commit('setProduct', response.data)
+                commit('stopLoading')
+            })
+        },
+        getPopularProducts({commit}) {
+            commit('startLoading')
+            instance.get(`popularProduct/`).then(response => {
+                commit('setPopularProduct', response.data)
                 commit('stopLoading')
             })
         },
@@ -164,6 +175,9 @@ export default new Vuex.Store({
         },
         productsCount(state) {
             return state.cart.length
+        },
+        popularProducts(state) {
+            return state.popularProducts
         },
         product(state) {
             return state.product

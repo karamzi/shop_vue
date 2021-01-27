@@ -2,57 +2,39 @@
     <section class="popular">
         <h3>Популярные товары</h3>
         <div class="list_popular_items">
-            <div class="popular_item">
-                <div class="popular_item_img">
-                    <img src="@/assets/img/ball.png" alt="">
-                </div>
-                <div class="popular_item_title">
-                    <h4>DV8 poison</h4>
-                </div>
-                <div class="popular_item_price">
-                    <span>13500 руб</span>
-                </div>
-            </div>
-            <div class="popular_item">
-                <div class="popular_item_img">
-                    <img src="@/assets/img/ball.png" alt="">
-                </div>
-                <div class="popular_item_title">
-                    <h4>DV8 poison</h4>
-                </div>
-                <div class="popular_item_price">
-                    <span>13500 руб</span>
-                </div>
-            </div>
-            <div class="popular_item">
-                <div class="popular_item_img">
-                    <img src="@/assets/img/ball.png" alt="">
-                </div>
-                <div class="popular_item_title">
-                    <h4>DV8 poison</h4>
-                </div>
-                <div class="popular_item_price">
-                    <span>13500 руб</span>
-                </div>
-            </div>
-            <div class="popular_item">
-                <div class="popular_item_img">
-                    <img src="@/assets/img/ball.png" alt="">
-                </div>
-                <div class="popular_item_title">
-                    <h4>DV8 poison</h4>
-                </div>
-                <div class="popular_item_price">
-                    <span>13500 руб</span>
-                </div>
+            <div @click="showProduct(product.product)" :key="product.product.vendor_code" v-for="product in popularProducts" class="popular_item">
+                <router-link :to="`${product.product.category}/${product.product.vendor_code}`" >
+                    <div class="popular_item_img">
+                        <img :src="product.product.img" alt="">
+                    </div>
+                    <div class="popular_item_title">
+                        <h4>{{ product.product.name }}</h4>
+                    </div>
+                    <div class="popular_item_price">
+                        <span>{{ product.product.price }} руб</span>
+                    </div>
+                </router-link>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+    import {mapActions, mapGetters, mapMutations} from 'vuex'
+
     export default {
-        name: "PopularProducts"
+        name: "PopularProducts",
+        computed: mapGetters(['popularProducts']),
+        methods: {
+            ...mapActions(['getPopularProducts']),
+            ...mapMutations(['setProduct']),
+            showProduct(product) {
+                this.setProduct(product)
+            }
+        },
+        mounted() {
+            this.getPopularProducts()
+        }
     }
 </script>
 
@@ -75,6 +57,11 @@
         justify-content: space-around;
     }
 
+    .list_popular_items a {
+        text-decoration: none;
+        color: #101010;
+    }
+
     .popular_item {
         display: flex;
         flex-direction: column;
@@ -84,17 +71,26 @@
     }
 
     .popular_item_img {
+        display: flex;
+        justify-content: center;
+        width: 100%;
         margin-bottom: 20px;
     }
 
     .popular_item_img img {
-        width: 100%;
+        width: 60%;
+        height: 200px;
     }
 
     .popular_item_title {
         margin-bottom: 5px;
         font-size: 20px;
         font-weight: bold;
+        text-align: center;
+    }
+
+    .popular_item_price {
+        text-align: center;
     }
 
     .popular_item:last-child {

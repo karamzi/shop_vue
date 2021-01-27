@@ -1,7 +1,7 @@
 <template>
     <section class="section_product">
         <div class="container">
-            <div v-if="!isLoading" class="product_block">
+            <div v-if="product" class="product_block">
                 <div class="product_img">
                     <img :src="product.img" alt="">
                 </div>
@@ -60,7 +60,7 @@
                 }
             }
         },
-        created() {
+        mounted() {
             if (!this.product) {
                 this.getProduct({category: 'ball', id: this.$route.params.id})
             }
