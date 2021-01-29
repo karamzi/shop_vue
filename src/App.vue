@@ -20,12 +20,14 @@
         methods: mapActions(['getProducts']),
     }
 </script>
-
 <style>
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+    body, html {
+        height: 100%;
     }
 
     body {
@@ -38,5 +40,11 @@
         max-width: 1170px;
         min-width: 1170px;
         margin: 0 auto;
+    }
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 </style>

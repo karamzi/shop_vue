@@ -1,7 +1,8 @@
 <template>
     <section class="popular">
         <h3>Популярные товары</h3>
-        <div class="list_popular_items">
+        <Preloader v-if="isLoading" />
+        <div v-else class="list_popular_items">
             <div @click="showProduct(product.product)" :key="product.product.vendor_code" v-for="product in popularProducts" class="popular_item">
                 <router-link :to="`${product.product.category}/${product.product.vendor_code}`" >
                     <div class="popular_item_img">
@@ -20,11 +21,13 @@
 </template>
 
 <script>
+    import Preloader from "@/components/Preloader"
     import {mapActions, mapGetters, mapMutations} from 'vuex'
 
     export default {
         name: "PopularProducts",
-        computed: mapGetters(['popularProducts']),
+        components: {Preloader},
+        computed: mapGetters(['popularProducts', 'isLoading']),
         methods: {
             ...mapActions(['getPopularProducts']),
             ...mapMutations(['setProduct']),
@@ -40,11 +43,13 @@
 
 <style>
     .popular {
+        position: relative;
         display: flex;
         flex-direction: column;
         padding: 0 20px;
         margin: 20px 0;
         width: 100%;
+        min-height: 200px;
     }
 
     .popular h3 {

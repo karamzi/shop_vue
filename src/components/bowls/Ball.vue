@@ -1,7 +1,8 @@
 <template>
     <section class="section_product">
         <div class="container">
-            <div v-if="product" class="product_block">
+            <Preloader v-if="isLoading" />
+            <div v-else class="product_block">
                 <div class="product_img">
                     <img :src="product.img" alt="">
                 </div>
@@ -24,16 +25,17 @@
                     </div>
                 </div>
             </div>
-            <div v-else>Загрузка</div>
         </div>
     </section>
 </template>
 
 <script>
+    import Preloader from "@/components/Preloader"
     import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "ball",
+        components: {Preloader},
         data() {
             return {
                 show: false,
@@ -69,6 +71,11 @@
 </script>
 
 <style scoped>
+    .section_product {
+        position: relative;
+        flex-grow: 1;
+    }
+
     .product_block {
         display: flex;
     }

@@ -34,7 +34,8 @@
                         </div>
                     </div>
                 </div>
-                <ProductsItems v-bind:cart="sortedCart"/>
+                <Preloader v-if="isLoading" />
+                <ProductsItems v-else v-bind:cart="sortedCart"/>
             </div>
         </div>
     </section>
@@ -43,6 +44,7 @@
 <script>
     import ProductsItems from "@/components/ProductsItems"
     import CheckBox from "@/components/CheckBox"
+    import Preloader from "@/components/Preloader"
     import {mapActions, mapGetters} from "vuex"
 
     export default {
@@ -59,8 +61,8 @@
             }
         },
 
-        components: {ProductsItems, CheckBox},
-        computed: mapGetters(['allProducts']),
+        components: {ProductsItems, CheckBox, Preloader},
+        computed: mapGetters(['allProducts', 'isLoading']),
         methods: {
             ...mapActions(['getProducts']),
             checkBox(name, type) {
@@ -105,6 +107,7 @@
     .category {
         display: flex;
         margin-top: 40px;
+        position: relative;
     }
 
     .filter_block {
