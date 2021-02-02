@@ -18,6 +18,7 @@ import Training from "@/components/Training"
 Vue.use(VueRouter)
 
 export default new VueRouter({
+    mode: 'history',
     routes: [{
         path: '/',
         component: MainPage,

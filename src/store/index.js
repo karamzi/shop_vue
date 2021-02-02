@@ -5,8 +5,8 @@ import axios from "axios"
 Vue.use(Vuex)
 
 const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/1.0/',
-    //baseURL: 'https://bowling-petersburg.ru',
+    //baseURL: 'http://127.0.0.1:8000/api/1.0/',
+    baseURL: 'https://bowling-petersburg.ru/api/1.0/',
 })
 
 function get_cookie(name) {
