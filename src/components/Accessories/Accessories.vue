@@ -17,9 +17,9 @@
                                 <div class="arrow-8"></div>
                             </div>
                             <div v-show="showType" class="category_link_accordion">
-                                <CheckBox v-bind:name="'Полотенце'" v-bind:type="'type'" @checkBox="checkBox"/>
-                                <CheckBox v-bind:name="'Клинеры'" v-bind:type="'type'" @checkBox="checkBox"/>
-                                <CheckBox v-bind:name="'Подошвы'" v-bind:type="'type'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Для обуви'" v-bind:type="'type'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Для рук'" v-bind:type="'type'" @checkBox="checkBox"/>
+                                <CheckBox v-bind:name="'Для шара'" v-bind:type="'type'" @checkBox="checkBox"/>
                             </div>
                         </div>
                     </div>
