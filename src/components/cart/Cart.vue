@@ -8,7 +8,9 @@
                 </div>
                 <div v-else class="cart_list">
                     <div v-bind:key="product.vendor_code" v-for="product in cart" class="cart_item">
-                        <img :src="product.img" alt="">
+                        <div class="img_wrapper">
+                            <img :src="product.img" alt="">
+                        </div>
                         <div class="cart_item_name">
                             <router-link :to="'/' + product.category + '/' + product.vendor_code ">{{ product.name }}
                             </router-link>
@@ -33,7 +35,7 @@
                 </div>
                 <div class="cart_buttons">
                     <router-link to="/" class="continue_buy">Продолжить покупки</router-link>
-                    <router-link to="/order" class="end_buy">Оформить заказ</router-link>
+                    <router-link v-if="cart.length !== 0" to="/order" class="end_buy">Оформить заказ</router-link>
                 </div>
             </div>
         </div>
@@ -93,13 +95,26 @@
         border-bottom: 1px solid #929292;
     }
 
-    .cart_item img {
+    .img_wrapper {
+        display: flex;
+        justify-content: center;
         width: 50px;
         height: 50px;
     }
 
+    .img_wrapper img {
+        object-fit: contain;
+        width: 100%;
+    }
+
+    .cart_item_name {
+        width: 30%;
+    }
+
     .cart_item_name a {
+        display: block;
         text-decoration: none;
+        text-align: center;
         color: #101010;
     }
 

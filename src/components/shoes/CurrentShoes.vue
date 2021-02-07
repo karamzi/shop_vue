@@ -20,7 +20,7 @@
                             </ul>
                         </div>
                         <div class="product_add_to_cart">
-                            <p @click="onAddToCard" href="#">Добавить в корзину</p>
+                            <p @click="onAddToCard">Добавить в корзину</p>
                         </div>
                     </div>
                 </div>

@@ -31,8 +31,27 @@
                 <div class="arrow-8"></div>
               </div>
               <div v-show="showSize" class="category_link_accordion">
+                <CheckBox v-bind:name="'36.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'36.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'37.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'37.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'38.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'38.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'39.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'39.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'40.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'40.5'" v-bind:type="'size'" @checkBox="checkBox"/>
                 <CheckBox v-bind:name="'41.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'41.5'" v-bind:type="'size'" @checkBox="checkBox"/>
                 <CheckBox v-bind:name="'42.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'42.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'43.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'43.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'44.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'44.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'45.0'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'45.5'" v-bind:type="'size'" @checkBox="checkBox"/>
+                <CheckBox v-bind:name="'46.0'" v-bind:type="'size'" @checkBox="checkBox"/>
               </div>
               <div @click="showSex = !showSex" class="category_link">
                 <p href="#">Пол</p>

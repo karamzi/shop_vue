@@ -22,7 +22,7 @@ function get_cookie(name) {
 function setCookie(value) {
     let expires = ""
     let date = new Date()
-    date.setTime(date.getTime() + (90 * 1000))
+    date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000))
     expires = "; expires=" + date.toUTCString()
     document.cookie = 'cart' + "=" + (value || "") + expires + ";"
 }

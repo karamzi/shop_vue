@@ -78,13 +78,14 @@
     .popular_item_img {
         display: flex;
         justify-content: center;
-        width: 100%;
         margin-bottom: 20px;
+        height: 200px;
+        padding: 20px;
     }
 
     .popular_item_img img {
-        width: 60%;
-        height: 200px;
+        object-fit: contain;
+        width: 100%;
     }
 
     .popular_item_title {

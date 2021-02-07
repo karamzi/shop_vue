@@ -55,7 +55,7 @@
         flex-direction: column;
         align-items: center;
         width: 33.3333%;
-        padding: 20px 0;
+        padding: 20px;
     }
 
     .product_container {
@@ -69,10 +69,12 @@
         justify-content: center;
         margin-bottom: 20px;
         height: 200px;
+        padding: 20px;
     }
 
     .product_item_img img {
-        width: 60%;
+        object-fit: contain;
+        width: 100%;
     }
 
     .product_item_title {
