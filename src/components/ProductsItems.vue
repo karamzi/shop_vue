@@ -81,6 +81,7 @@
         margin-bottom: 5px;
         font-size: 20px;
         font-weight: bold;
+        text-align: center;
     }
 
     .product_item:last-child {

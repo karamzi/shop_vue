@@ -120,7 +120,7 @@ export default {
       }
       if (this.sort.size.length) {
         this.sortedCart = this.sortedCart.filter(product => {
-          return this.sort.size.some(size => product.size.some(item => size == item.size))
+          return this.sort.size.some(size => product.size.some(item => size == item))
         })
       }
       if (this.sort.hand.length) {

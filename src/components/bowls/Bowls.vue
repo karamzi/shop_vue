@@ -112,7 +112,7 @@ export default {
       }
       if (this.sort.weight.length) {
         this.sortedCart = this.sortedCart.filter(product => {
-          return this.sort.weight.some(weight => product.weight.some(item => weight == item.weight))
+          return this.sort.weight.some(weight => product.weight.some(item => weight == item))
         })
       }
     }

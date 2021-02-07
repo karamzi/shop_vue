@@ -16,7 +16,7 @@
                         <div @mouseover="showSizes" @mouseleave="hideSizes" class="ball_weight">
                             <span>{{ size }}</span>
                             <ul @click="choseSize($event)" v-if="show">
-                                <li v-bind:key="weight.weight" v-for="weight in product.weight">{{ weight.weight }}</li>
+                                <li v-bind:key="weight.weight" v-for="weight in product.weight">{{ weight }}</li>
                             </ul>
                         </div>
                         <div class="product_add_to_cart">
