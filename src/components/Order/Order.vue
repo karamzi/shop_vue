@@ -24,7 +24,9 @@
                 <div class="order_cart">
                     <h3>Ваш заказ ({{ rightDeclination() }})</h3>
                     <div v-bind:key="product.vendor_code" v-for="product in cart" class="item">
-                        <img :src="product.img">
+                        <div class="img_wrapper">
+                            <img :src="product.img">
+                        </div>
                         <div class="description">
                             <p>{{ product.name }}</p>
                             <p>{{ product.quantity }} x {{ product.price }} руб</p>
@@ -205,11 +207,18 @@
         margin-bottom: 15px;
     }
 
-    .item img {
+    .img_wrapper {
+        display: flex;
+        justify-content: center;
         width: 40px;
         height: 40px;
         margin-right: 30px;
         margin-bottom: 10px;
+    }
+
+    .img_wrapper img {
+        object-fit: contain;
+        width: 100%;
     }
 
     .amount {
