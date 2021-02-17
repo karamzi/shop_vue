@@ -157,7 +157,6 @@ export default new Vuex.Store({
             formData.append('phone', order.phone)
             formData.append('email', order.email)
             formData.append('totalPrice', order.totalPrice)
-            console.log(formData)
             instance.post('createOrder/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',

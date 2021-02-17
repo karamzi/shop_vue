@@ -158,6 +158,8 @@
         list-style: none;
         position: absolute;
         width: 100%;
+        height: 110px;
+        overflow: scroll;
     }
 
     .ball_weight ul li {
